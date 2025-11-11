@@ -1,0 +1,133 @@
+# Tech Context: MaxAdjust PWA Development Stack
+
+## Technology Stack
+
+### Core Framework
+- **Next.js 15.1.6**: React framework with App Router
+- **React 19.0.0**: UI library
+- **TypeScript 5.x**: Type safety
+
+### Styling & UI
+- **Tailwind CSS 3.4.1**: Utility-first CSS framework
+- **@heroui/theme**: Current UI component library (may replace)
+- **clsx**: Conditional className utility
+- **tailwind-merge**: Merge Tailwind classes safely
+
+### PWA & Performance
+- **next-pwa**: PWA plugin for Next.js (to be added)
+- **sharp 0.33.5**: Image optimization
+- **Service Worker**: For offline functionality
+
+### Content Management
+- **MDX**: For blog/content pages
+- **content-collections**: Content organization
+
+### Package Management
+- **Current**: npm/yarn (package-lock.json)
+- **Target**: pnpm (for better performance)
+
+### Development Tools
+- **ESLint**: Code linting
+- **Prettier**: Code formatting (to be configured)
+- **TypeScript**: Type checking
+
+## Development Setup
+
+### Current Environment
+```
+- Windows 11 (win32 10.0.26200)
+- PowerShell terminal
+- VS Code / Cursor IDE
+- Node.js (version TBD)
+```
+
+### Project Structure
+```
+maxadjust-upgrade/
+├── src/
+│   ├── app/           # Next.js app directory
+│   ├── components/    # React components
+│   ├── contents/      # MDX content files
+│   ├── hooks/         # Custom React hooks
+│   ├── lib/           # Utilities
+│   └── partials/      # Page sections
+├── public/            # Static assets
+├── memory-bank/       # Project documentation
+└── docker-compose.yaml # Container config
+```
+
+### Build & Deployment
+- **Build**: Next.js standalone output
+- **Container**: Docker with port 3402
+- **Hosting**: Vercel (current)
+- **Domain**: maxadjust-khaki.vercel.app
+
+## Technical Constraints
+
+### Performance Requirements
+- Mobile bundle size: <500KB
+- Image size limit: 100KB mobile, 200KB desktop
+- First contentful paint: <1.5s
+- Time to interactive: <3s
+
+### Browser Support
+- Modern mobile browsers (last 2 versions)
+- Safari iOS 14+
+- Chrome/Edge mobile
+- PWA support required
+
+### Mobile Constraints
+- Touch targets: minimum 48x48px
+- Bottom safe area for iPhone notch
+- Viewport: mobile-first responsive
+- Offline capability required
+
+## Dependencies to Add
+- **pnpm**: Package manager upgrade
+- **next-pwa**: PWA functionality
+- **lucide-react** or **heroicons**: Icon library
+- **react-intersection-observer**: Lazy loading
+
+## Dependencies to Remove/Replace
+- **@heroui/***: Replace with custom components
+- **gsap/framer-motion**: Minimize animations
+- **react-slick/swiper**: Remove sliders
+- **Heavy image assets**: Convert to WebP
+
+## Tool Usage Patterns
+
+### Image Handling
+- Use WebP format with fallbacks
+- Implement responsive images
+- Lazy load below fold
+- Maximum 100KB per image on mobile
+
+### CSS Architecture  
+- Mobile-first media queries
+- Utility-first with Tailwind
+- Minimal custom CSS
+- Component-scoped styles
+
+### Component Development
+- Functional components only
+- TypeScript interfaces for props
+- Mobile-first component design
+- Accessibility built-in
+
+## Environment Variables
+```env
+NODE_ENV=production
+NEXT_PUBLIC_GA_ID=<analytics-id>
+NEXT_PUBLIC_SITE_URL=https://maxadjust.com
+```
+
+## Docker Configuration
+- Node.js base image
+- Port 3402 exposed
+- Standalone Next.js build
+- Production optimizations
+
+## MCP Integration (Planned)
+- Context7 protocol for documentation
+- Port 4001-4005 for MCP services
+- Integration with memory bank

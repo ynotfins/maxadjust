@@ -1,5 +1,5 @@
-import HeroSlider from "./partials/hero-slider";
-import Services from "./partials/services";
+import HeroClean from "./partials/hero-clean";
+import ServicesClean from "./partials/services-clean";
 import Steps from "./partials/steps";
 import Testimonials from "./partials/testimonials";
 import Compare from "./partials/compare";
@@ -8,7 +8,6 @@ import { ProfessionalService, WithContext } from "schema-dts";
 import branding from "~/branding";
 import { url } from "~/lib/url";
 import services from "~/constants/services";
-import PopupModal from "~/components/onload-popup";
 
 export const metadata: Metadata = {
     title: "Important to call us before you call your insurance company",
@@ -55,10 +54,9 @@ export default function Home() {
     };
 
     return (
-        <div>
-            <PopupModal />
-            <HeroSlider />
-            <Services />
+        <div className="bg-gray-50">
+            <HeroClean />
+            <ServicesClean />
             <Steps />
             <Testimonials />
             <Compare />

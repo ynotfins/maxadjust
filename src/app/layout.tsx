@@ -12,6 +12,7 @@ import { IntercomProvider } from "~/components/intercom-provider";
 import { Bounce, ToastContainer } from "react-toastify";
 import { ViewTransitions } from "next-view-transitions";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { BottomNavigation } from "~/components/ui";
 
 const outfit = Outfit({
     variable: "--font-outfit",
@@ -40,12 +41,15 @@ export default function RootLayout({
         <ViewTransitions>
             <html lang="en">
                 <body
-                    className={cn("antialiased min-h-screen", outfit.className)}
+                    className={cn("antialiased min-h-screen bottom-nav-spacer", outfit.className)}
                 >
                     <HeroUIProvider>
                         <Header />
-                        {children}
+                        <main className="min-h-screen">
+                            {children}
+                        </main>
                         <Footer />
+                        <BottomNavigation />
                         <StickyHeader />
                         <IntercomProvider />
                         <ToastContainer

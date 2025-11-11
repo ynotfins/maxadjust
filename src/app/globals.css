@@ -3,44 +3,93 @@
 @tailwind utilities;
 
 :root {
-    --background: #ebebeb;
-    --foreground: #291700;
+    --background: #FFFFFF;
+    --foreground: #212121;
 }
 
 body {
     color: var(--foreground);
     background: var(--background);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 @layer base {
+    html {
+        @apply scroll-smooth;
+    }
+    
     h1,
     h2,
     h3,
     h4,
     h5,
-    h6,
+    h6 {
+        @apply text-foreground font-semibold;
+    }
+    
     p,
     li,
     a {
-        @apply text-foreground dark:text-white;
+        @apply text-foreground;
     }
 }
 
-@media (min-width: 1024px) {
-    .shaped-bg {
-        clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%);
+@layer components {
+    /* Mobile-first page padding */
+    .page-container {
+        @apply px-4 md:px-6 lg:px-8 max-w-7xl mx-auto;
     }
-    .shaped-bg-reversed {
-        clip-path: polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 50%);
+    
+    /* Mobile card component */
+    .mobile-card {
+        @apply bg-white rounded-lg shadow-md p-4 md:p-6;
+    }
+    
+    /* Bottom navigation spacer (mobile/tablet) */
+    .bottom-nav-spacer {
+        @apply pb-20 md:pb-20 lg:pb-0;
     }
 }
 
-.page-borders {
-    @apply px-md lg:px-3xl;
+@layer utilities {
+    /* Hide on mobile, show on desktop */
+    .desktop-only {
+        @apply hidden lg:block;
+    }
+    
+    /* Show on mobile/tablet, hide on desktop */
+    .mobile-tablet-only {
+        @apply block lg:hidden;
+    }
+    
+    /* Mobile-friendly tap target */
+    .tap-target {
+        @apply min-h-[48px] min-w-[48px] flex items-center justify-center;
+    }
 }
 
+/* Custom scrollbar */
 * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+    scrollbar-color: #BDBDBD transparent;
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #BDBDBD;
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #9E9E9E;
 }

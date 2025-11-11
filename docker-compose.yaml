@@ -9,3 +9,11 @@ services:
             - "3402:3000"
         environment:
             NODE_ENV: production
+        volumes:
+            - ./memory-bank:/app/memory-bank:ro
+        networks:
+            - maxadjust-network
+
+networks:
+    maxadjust-network:
+        driver: bridge

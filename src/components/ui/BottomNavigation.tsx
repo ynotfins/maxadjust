@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import { Home, Grid3x3, Phone, MessageCircle, Menu } from "lucide-react";
 import { cn } from "~/lib/cn";
 

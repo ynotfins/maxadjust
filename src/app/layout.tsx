@@ -10,7 +10,6 @@ import { Outfit } from "next/font/google";
 import { StickyHeader } from "~/partials/sticky-header";
 import { IntercomProvider } from "~/components/intercom-provider";
 import { Bounce, ToastContainer } from "react-toastify";
-import { ViewTransitions } from "next-view-transitions";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { BottomNavigation } from "~/components/ui";
 
@@ -38,8 +37,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <ViewTransitions>
-            <html lang="en">
+        <html lang="en">
                 <body
                     className={cn("antialiased min-h-screen bottom-nav-spacer", outfit.className)}
                 >
@@ -78,6 +76,5 @@ export default function RootLayout({
                     ></script>
                 </body>
             </html>
-        </ViewTransitions>
     );
 }

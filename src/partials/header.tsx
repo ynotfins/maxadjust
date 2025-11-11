@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import Logo from "./logo";
 import Navbar from "./navbar";
 import { Menu, Phone } from "lucide-react";

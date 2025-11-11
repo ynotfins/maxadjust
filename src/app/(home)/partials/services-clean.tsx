@@ -1,5 +1,5 @@
 import { Card } from "~/components/ui";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import {
     Flame,
     Droplets,

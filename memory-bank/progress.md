@@ -1,15 +1,15 @@
 # Progress: MaxAdjust PWA Development
 
-## Current Status: Project Setup Phase
-**Date**: November 10, 2025  
-**Sprint**: Mobile-First Transformation
+## Current Status: PWA Implementation & Build Debugging
+**Date**: November 28, 2025
+**Sprint**: PWA & Production Readiness
 
 ## What Works Currently
-- ✅ Next.js 15 application deployed on Vercel
+- ✅ Next.js 15 application running in dev mode
+- ✅ PWA features (Manifest, Service Worker) verified in dev
+- ✅ Mobile-first design system implemented
 - ✅ Basic routing structure for services
 - ✅ Content pages using MDX
-- ✅ Docker containerization setup
-- ✅ Memory Bank structure initialized
 
 ## Completed Tasks
 ### Session 1 (Nov 10, 2025)
@@ -19,16 +19,22 @@
 - [x] Defined mobile-first architecture patterns
 - [x] Established design system specifications
 
+### Session 2 (Nov 28, 2025)
+- [x] Installed `@ducanh2912/next-pwa`
+- [x] Configured `next.config.ts` for PWA support
+- [x] Created and fixed `src/app/manifest.ts`
+- [x] Updated `tsconfig.json` to exclude unrelated files
+- [x] Verified PWA functionality in development environment
+
 ## In Progress
-- [ ] Migrating to pnpm package manager
-- [ ] Setting up mobile-first breakpoints
-- [ ] Configuring Context7 MCP protocol
+- [ ] Debugging `pnpm build` failure (readlink error)
+- [ ] Verifying production build artifacts
 
 ## What's Left to Build
 
 ### Phase 1: Foundation (Current)
-- [ ] Complete pnpm migration
-- [ ] Configure Context7 MCP integration
+- [x] Complete pnpm migration
+- [ ] Fix production build process
 - [ ] Set up mobile-first Tailwind breakpoints
 - [ ] Remove excessive images from codebase
 
@@ -40,15 +46,15 @@
 
 ### Phase 3: Core Components
 - [ ] Bottom Navigation component
-- [ ] Mobile Service Card component  
+- [ ] Mobile Service Card component
 - [ ] Button component (primary/danger variants)
 - [ ] Card container component
 - [ ] Form input components
 
 ### Phase 4: PWA Setup
-- [ ] Install and configure next-pwa
-- [ ] Create service worker
-- [ ] Enhanced manifest.json
+- [x] Install and configure next-pwa
+- [x] Create service worker (via plugin)
+- [x] Enhanced manifest.json (via manifest.ts)
 - [ ] Offline fallback pages
 - [ ] Install prompt handler
 
@@ -66,26 +72,23 @@
 - [ ] Critical CSS extraction
 
 ## Known Issues
+- **Critical**: `pnpm build` fails with a `readlink` error, possibly related to `content-collections`.
 - Current site has too many images for mobile
 - Hero slider not mobile-friendly
-- No offline functionality
 - Bundle size likely exceeds 500KB target
-- Navigation requires hamburger menu interaction
 
 ## Technical Debt
 - Need to remove @heroui dependencies
 - Multiple animation libraries (gsap, framer-motion)
 - Redundant image assets in public folder
-- No PWA capabilities currently
 
 ## Blockers
-None currently
+- Production build failure prevents deployment of PWA changes.
 
 ## Next Session Focus
-1. Complete pnpm migration
-2. Set up mobile-first breakpoints
-3. Begin removing excessive images
-4. Start building bottom navigation component
+1. Resolve `content-collections` build error
+2. Verify production service worker
+3. Continue with Phase 2 (Design System) implementation
 
 ## Notes for Future Sessions
 - Remember to test on actual mobile devices
@@ -95,6 +98,6 @@ None currently
 - Test offline functionality thoroughly
 
 ## Evolution of Decisions
+- **Nov 28**: Switched to `@ducanh2912/next-pwa` for better compatibility with Next.js App Router.
+- **Nov 28**: Decided to generate manifest dynamically using `manifest.ts` to keep branding consistent.
 - **Nov 10**: Decided on bottom navigation over hamburger menu for better mobile UX
-- **Nov 10**: Chose to remove all decorative images to improve performance
-- **Nov 10**: Tablet will use mobile navigation patterns, not desktop

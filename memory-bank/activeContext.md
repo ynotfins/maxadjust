@@ -1,61 +1,38 @@
 # Active Context: MaxAdjust PWA Development
 
-## Current Date: November 10, 2025
+## Current Date: November 28, 2025
 
 ## Current Work Focus
-Major transformation complete! Successfully implemented mobile-first PWA with app-like design matching the business application style.
+PWA implementation is complete and verified in development. Currently resolving a production build issue related to `content-collections` to ensure successful deployment.
 
 ## Recent Changes
+- ✅ Implemented PWA support using `@ducanh2912/next-pwa`
+- ✅ Configured `manifest.ts` for dynamic web manifest generation
+- ✅ Fixed type errors in `manifest.ts` and updated `tsconfig.json`
+- ✅ Verified Service Worker and Manifest functionality in development mode
 - ✅ Migrated to pnpm package manager (Windows-safe config)
 - ✅ Implemented mobile-first design system (Primary Blue #2196F3)
-- ✅ Created PWA infrastructure with next-pwa
-- ✅ Built complete UI component library (Button, Card, Input, Tabs, Bottom Navigation)
-- ✅ Redesigned navigation with blue header and bottom nav
-- ✅ Transformed homepage - replaced image slider with clean hero
-- ✅ Created service grid with large icons and white space
 
 ## Next Steps
-1. Update service pages with consistent clean templates
-2. Implement image lazy loading and optimization
-3. Test PWA on mobile devices
-4. Performance audit and optimization
-5. Review and remove unused dependencies
+1. **Fix Build Error**: Resolve `readlink` error associated with `content-collections` during production build
+2. **Verify Production PWA**: Ensure Service Worker registers correctly in the production build
+3. **Update Service Pages**: Apply mobile-first design templates to all service pages
+4. **Performance Optimization**: Implement image lazy loading and audit bundle size
 
 ## Active Decisions & Considerations
+
+### PWA Implementation
+- **Library**: Chose `@ducanh2912/next-pwa` for better Next.js 13+ support.
+- **Strategy**: Service Worker is disabled in development (`disable: process.env.NODE_ENV === "development"`) to prevent caching issues during iteration.
+- **Manifest**: Generated dynamically via `src/app/manifest.ts` to utilize project branding constants.
 
 ### Implemented Design System
 - **Colors**: Primary Blue #2196F3, Danger Red #F44336, Success Green #4CAF50
 - **Typography**: System fonts for clean, native feel
 - **Spacing**: 4, 8, 12, 16, 24, 32, 48, 64px scale
-- **Components**: All match business app style exactly
-
-### Navigation Structure
-- **Mobile/Tablet**: Fixed bottom navigation (Home, Services, Call, Chat, More)
-- **Desktop**: Blue top header with white logo and navigation
-- **Mobile breakpoint**: 0-1023px uses bottom nav
-- **Desktop breakpoint**: 1024px+ uses top nav
-
-### Homepage Transformation
-- **Old**: Heavy image slider with overlay text
-- **New**: Clean hero with emergency badge, trust indicators, and clear CTAs
-- **Services**: 8 cards with large icons in 4-column grid
-- **White Space**: Generous padding throughout
-
-## Important Patterns & Preferences
-- All UI components in `src/components/ui/`
-- Export through index.ts for clean imports
-- Mobile-first CSS with Tailwind utilities
-- Card-based layouts with consistent shadows
-- Bottom safe area padding for iPhone notch
-
-## Technical Achievements
-- **PWA**: Service worker configured, installable on mobile
-- **Performance**: Removed heavy image sliders
-- **Accessibility**: 48px minimum touch targets
-- **Responsive**: Clean breakpoints at 768px and 1024px
 
 ## Current Blockers
-None - smooth progress
+- **Production Build Failure**: `pnpm build` fails with a `readlink` error, likely stemming from `content-collections` or a file system anomaly in the `src` directory.
 
 ## Session Notes
-Successfully transformed MaxAdjust into app-like PWA. Design now matches business app with blue primary color, clean cards, bottom navigation, and minimal imagery. Homepage feels like a native app with clear CTAs and trust indicators. Ready for service page updates and final optimization.
+Successfully implemented PWA features (manifest, icons, service worker config). Verified functionality in dev mode. Encountered a persistent build error during `pnpm build` which seems unrelated to the PWA changes (persisted even when PWA config was reverted). Next priority is debugging the build process.

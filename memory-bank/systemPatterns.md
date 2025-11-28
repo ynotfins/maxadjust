@@ -105,10 +105,11 @@ MaxAdjust PWA
 ## Critical Implementation Paths
 
 ### PWA Implementation
-1. Service Worker registration in _app.tsx
-2. Manifest.json with mobile-first viewport
-3. Install prompt handler in layout
-4. Offline fallback pages
+1. **Plugin**: `@ducanh2912/next-pwa` configured in `next.config.ts`
+2. **Manifest**: Dynamic generation via `src/app/manifest.ts`
+3. **Service Worker**: Auto-generated `sw.js` in `public/` (disabled in dev)
+4. **Icons**: Standardized icons in `public/`
+5. **Offline Support**: Cache-first strategy for static assets
 
 ### Performance Critical Path
 1. Inline critical CSS

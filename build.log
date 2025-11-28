@@ -1,0 +1,20 @@
+Starting content-collections content-collections.ts
+   ▲ Next.js 15.1.6
+   - Environments: .env.local
+
+build started ...
+... finished build of 1 collection and 15 documents in 85ms
+   Creating an optimized production build ...
+ ✓ (pwa) Compiling for server...
+ ✓ (pwa) Compiling for server...
+ ✓ (pwa) Compiling for client (static)...
+ ○ (pwa) Service worker: D:\Github\maxadjust-upgrade\public\sw.js
+ ○ (pwa)   URL: /sw.js
+ ○ (pwa)   Scope: /
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+Failed to compile.
+
+Error: EISDIR: illegal operation on a directory, readlink 'D:\Github\maxadjust-upgrade\src\app\manifest.ts'
+
+
+> Build failed because of webpack errors

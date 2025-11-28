@@ -1,0 +1,19 @@
+file:///C:/Users/ynotf/AppData/Local/npm-cache/_npx/bf50c8674c57fd4c/node_modules/@clerc/core/dist/index.js:807
+        const error = stringName ? new NoSuchCommandError(stringName, t) : new NoCommandGivenError(t);
+                                   ^
+
+NoSuchCommandError: No such command: "build".
+    at fn (file:///C:/Users/ynotf/AppData/Local/npm-cache/_npx/bf50c8674c57fd4c/node_modules/@clerc/core/dist/index.js:807:36)
+    at dispatch (file:///C:/Users/ynotf/AppData/Local/npm-cache/_npx/bf50c8674c57fd4c/node_modules/@clerc/core/dist/index.js:240:14)
+    at file:///C:/Users/ynotf/AppData/Local/npm-cache/_npx/bf50c8674c57fd4c/node_modules/@clerc/plugin-help/dist/index.js:365:9
+    at dispatch (file:///C:/Users/ynotf/AppData/Local/npm-cache/_npx/bf50c8674c57fd4c/node_modules/@clerc/core/dist/index.js:240:14)
+    at fn (file:///C:/Users/ynotf/AppData/Local/npm-cache/_npx/bf50c8674c57fd4c/node_modules/@clerc/plugin-version/dist/index.js:44:13)
+    at dispatch (file:///C:/Users/ynotf/AppData/Local/npm-cache/_npx/bf50c8674c57fd4c/node_modules/@clerc/core/dist/index.js:240:14)
+    at file:///C:/Users/ynotf/AppData/Local/npm-cache/_npx/bf50c8674c57fd4c/node_modules/@clerc/core/dist/index.js:237:12
+    at _Clerc.runMatchedCommand_fn (file:///C:/Users/ynotf/AppData/Local/npm-cache/_npx/bf50c8674c57fd4c/node_modules/@clerc/core/dist/index.js:815:3)
+    at file:///C:/Users/ynotf/AppData/Local/npm-cache/_npx/bf50c8674c57fd4c/node_modules/@clerc/core/dist/index.js:639:158
+    at _Clerc.callWithErrorHandling_fn (file:///C:/Users/ynotf/AppData/Local/npm-cache/_npx/bf50c8674c57fd4c/node_modules/@clerc/core/dist/index.js:786:5) {
+  commandName: 'build'
+}
+
+Node.js v22.19.0

@@ -5,7 +5,7 @@ import { Button } from "@heroui/button";
 import { useForm } from "~/hooks/use-form";
 import { Checkbox } from "@heroui/checkbox";
 import { z } from "zod";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import { toast } from "react-toastify";
 import branding from "~/branding";
 

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React, { useRef, useEffect, useState } from "react";
 import { Post } from "content-collections";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import branding from "~/branding";
 import { Button } from "@heroui/button";
 

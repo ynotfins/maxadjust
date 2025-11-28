@@ -1,7 +1,7 @@
 import cn from "~/lib/cn";
 import branding from "~/branding";
 import ServicePageHero from "~/templates/service-page-hero";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import { Metadata } from "next";
 import { Service, WithContext } from "schema-dts";
 import { url } from "~/lib/url";

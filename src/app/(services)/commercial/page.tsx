@@ -1,5 +1,5 @@
 import { allPosts } from "content-collections";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import branding from "~/branding";
 import cn from "~/lib/cn";
 import ServicePageHero from "~/templates/service-page-hero";

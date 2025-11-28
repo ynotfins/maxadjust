@@ -1,7 +1,7 @@
 "use client";
 import cn from "~/lib/cn";
 import Image from "next/image";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { StarRating } from "~/components/star-rating";
 import { CheckList } from "~/components/checklist";

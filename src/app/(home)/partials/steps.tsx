@@ -1,5 +1,5 @@
 import { CheckIcon } from "lucide-react";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import Image from "next/image";
 import branding from "~/branding";
 import PhoneNumberButton from "~/components/phone-number-button";

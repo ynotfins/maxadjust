@@ -9,6 +9,17 @@ html[data-theme="primary-light"] {
     --primary: var(--md-sys-color-primary, #2563eb);
     --secondary: var(--md-sys-color-secondary, #ef4444);
     --muted-foreground: #64748b;
+    --ma-shadow-soft: var(
+        --md-sys-elevation-level2,
+        0 2px 8px rgba(15, 23, 42, 0.06),
+        0 8px 24px rgba(15, 23, 42, 0.08)
+    );
+    --ma-shadow-lift: var(
+        --md-sys-elevation-level3,
+        0 4px 12px rgba(15, 23, 42, 0.08),
+        0 12px 32px rgba(15, 23, 42, 0.1)
+    );
+    --ma-touch: var(--md-rgds-density-touch-target-min, 64px);
 }
 
 body {
@@ -28,6 +39,144 @@ body {
     li,
     a {
         @apply text-foreground dark:text-white;
+    }
+}
+
+@layer components {
+    .ma-section {
+        @apply py-12 md:py-16 lg:py-24;
+    }
+
+    .ma-section-title {
+        @apply text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900;
+    }
+
+    .ma-section-sub {
+        @apply text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed;
+    }
+
+    .ma-badge {
+        @apply inline-flex items-center gap-2 px-4 py-2.5 md:px-5 md:py-3 rounded-full text-sm md:text-base font-semibold;
+        min-height: 44px;
+        box-shadow: var(--ma-shadow-soft);
+    }
+
+    .ma-card {
+        @apply bg-white rounded-[1.5rem] border border-gray-100 transition-all duration-300 p-5 md:p-7 lg:p-8;
+        min-height: 8.5rem;
+        box-shadow: var(--ma-shadow-soft);
+    }
+
+    @media (min-width: 768px) {
+        .ma-card {
+            min-height: 11rem;
+            border-radius: 1.75rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .ma-card {
+            min-height: 12.5rem;
+        }
+    }
+
+    .ma-card:hover {
+        box-shadow: var(--ma-shadow-lift);
+        transform: translateY(-4px);
+    }
+
+    .ma-card-press {
+        @apply ma-card cursor-pointer;
+        min-height: var(--ma-touch);
+    }
+
+    .ma-icon-tile {
+        @apply flex items-center justify-center rounded-2xl text-white shrink-0 w-14 h-14 md:w-[4.5rem] md:h-[4.5rem] lg:w-20 lg:h-20;
+        box-shadow: var(--ma-shadow-soft);
+    }
+
+    .ma-icon-tile > svg {
+        @apply w-7 h-7 md:w-9 md:h-9 lg:w-10 lg:h-10;
+    }
+
+    .ma-btn {
+        @apply inline-flex items-center justify-center gap-3 font-bold rounded-2xl transition-all duration-200;
+        min-height: var(--ma-touch);
+        padding: 1rem 1.75rem;
+        font-size: 1.0625rem;
+        box-shadow: var(--ma-shadow-soft);
+    }
+
+    @media (min-width: 768px) {
+        .ma-btn {
+            min-height: 72px;
+            padding: 1.25rem 2.25rem;
+            font-size: 1.175rem;
+            border-radius: 1.25rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .ma-btn {
+            min-height: 80px;
+            padding: 1.35rem 2.5rem;
+            font-size: 1.25rem;
+        }
+    }
+
+    .ma-btn:hover {
+        box-shadow: var(--ma-shadow-lift);
+        transform: translateY(-2px);
+    }
+
+    .ma-btn:active {
+        transform: translateY(0);
+    }
+
+    .ma-btn-primary {
+        @apply ma-btn text-white;
+        background: var(--md-sys-color-primary, #2563eb);
+    }
+
+    .ma-btn-primary:hover {
+        filter: brightness(1.05);
+    }
+
+    .ma-btn-secondary {
+        @apply ma-btn bg-white text-gray-900 border-2 border-gray-200;
+    }
+
+    .ma-btn-secondary:hover {
+        border-color: color-mix(in srgb, var(--md-sys-color-primary, #2563eb) 40%, transparent);
+        background: color-mix(in srgb, var(--md-sys-color-primary, #2563eb) 5%, white);
+    }
+
+    .ma-input {
+        @apply w-full rounded-2xl border-2 border-gray-200 bg-white text-base md:text-lg;
+        min-height: var(--ma-touch);
+        padding: 1rem 1.25rem;
+        box-shadow: var(--ma-shadow-soft);
+    }
+
+    @media (min-width: 768px) {
+        .ma-input {
+            min-height: 72px;
+            padding: 1.15rem 1.5rem;
+        }
+    }
+
+    .ma-input:focus {
+        outline: none;
+        border-color: var(--md-sys-color-primary, #2563eb);
+        box-shadow: var(--ma-shadow-lift);
+    }
+
+    .ma-card-title {
+        @apply text-lg md:text-xl lg:text-2xl font-bold text-gray-900;
+    }
+
+    .ma-card-body {
+        @apply text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed;
     }
 }
 

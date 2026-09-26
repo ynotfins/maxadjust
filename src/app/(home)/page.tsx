@@ -7,6 +7,7 @@ import ComparisonSection from "./_alpha/ComparisonSection";
 import FeaturesSection from "./_alpha/FeaturesSection";
 import PhotosSection from "./_alpha/PhotosSection";
 import ContactSection from "./_alpha/ContactSection";
+import { HomeCrisisSection } from "~/components/crisis/home-crisis-section";
 import { Metadata } from "next";
 import { ProfessionalService, WithContext } from "schema-dts";
 import branding from "~/branding";
@@ -60,6 +61,7 @@ export default function Home() {
     return (
         <main>
             <HeroSection />
+            <HomeCrisisSection />
             <IntroSection />
             <ClaimsSection />
             <ProcessSection />

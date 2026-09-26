@@ -17,6 +17,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 import { ViewTransitions } from "next-view-transitions";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { RgdsBoot } from "~/components/rgds-boot";
+import { GuardianFollow } from "~/components/crisis/guardian-follow";
 
 const outfit = Outfit({
     variable: "--font-outfit",
@@ -58,6 +59,7 @@ export default function RootLayout({
                         {children}
                         <Footer />
                         <StickyHeader />
+                        <GuardianFollow />
                         <IntercomProvider />
                         <ToastContainer
                             position="top-center"

@@ -1,19 +1,22 @@
-import HeroSlider from "./partials/hero-slider";
-import Services from "./partials/services";
-import Steps from "./partials/steps";
-import Testimonials from "./partials/testimonials";
-import Compare from "./partials/compare";
+import HeroSection from "./_alpha/HeroSection";
+import IntroSection from "./_alpha/IntroSection";
+import ClaimsSection from "./_alpha/ClaimsSection";
+import ProcessSection from "./_alpha/ProcessSection";
+import TestimonialsSection from "./_alpha/TestimonialsSection";
+import ComparisonSection from "./_alpha/ComparisonSection";
+import FeaturesSection from "./_alpha/FeaturesSection";
+import PhotosSection from "./_alpha/PhotosSection";
+import ContactSection from "./_alpha/ContactSection";
 import { Metadata } from "next";
 import { ProfessionalService, WithContext } from "schema-dts";
 import branding from "~/branding";
 import { url } from "~/lib/url";
 import services from "~/constants/services";
-import PopupModal from "~/components/onload-popup";
 
 export const metadata: Metadata = {
-    title: "Important to call us before you call your insurance company",
+    title: "MAX ADJUST - Licensed Public Adjusters | Maximize Your Insurance Settlement",
     description:
-        "We specialize in maximizing your insurance claim to get you paid more, while protecting you from being denied!",
+        "Licensed public adjusters fighting for your rights. We handle everything from documentation to negotiation, ensuring you get the maximum payout you deserve.",
 };
 
 export default function Home() {
@@ -27,10 +30,10 @@ export default function Home() {
         telephone: branding.phoneNumber,
         address: {
             "@type": "PostalAddress",
-            streetAddress: "23 Sheraton Ln",
-            addressLocality: "Rumson",
+            streetAddress: "331 Newman Springs Rd Suite 143",
+            addressLocality: "Red Bank",
             addressRegion: "NJ",
-            postalCode: "07760",
+            postalCode: "07701",
             addressCountry: "US",
         },
         serviceArea: {
@@ -55,19 +58,22 @@ export default function Home() {
     };
 
     return (
-        <div>
-            <PopupModal />
-            <HeroSlider />
-            <Services />
-            <Steps />
-            <Testimonials />
-            <Compare />
+        <main>
+            <HeroSection />
+            <IntroSection />
+            <ClaimsSection />
+            <ProcessSection />
+            <TestimonialsSection />
+            <ComparisonSection />
+            <FeaturesSection />
+            <PhotosSection />
+            <ContactSection />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify(schemaData),
                 }}
             />
-        </div>
+        </main>
     );
 }

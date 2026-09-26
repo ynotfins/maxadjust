@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MaxAdjust.com (canonical)
 
-## Getting Started
+Canonical Next.js site for **maxadjust.com**.
 
-First, run the development server:
+## Authority
+
+| Layer | Source |
+| --- | --- |
+| Visual system | [R3lentless-Grind Design System (RGDS)](https://github.com/R3lentless-Grind/r3lentless-grind-design-system) — theme `primary-light` |
+| Brand colors | Live maxadjust.com / logo: primary `#2563EB`, secondary `#EF4444`, accent `#F97316` |
+| Hosting today | Vercel (migrating to local) |
+| Related archives (do not develop further) | `Alpha_Page_Max_Adjust`, `MAX-ADJUST-WHM` |
+
+## Stack
+
+- Next.js 15 App Router
+- `@r3lentless/rgds-web` (vendored `vendor/r3lentless-rgds-web-1.1.1.tgz` until the MaxAdjust brand patch is published to npm)
+- HeroUI + Tailwind (legacy helpers; new UI should prefer RGDS primitives)
+
+## Pages
+
+- `/` — marketing home (live Alpha sections + RGDS Light theme)
+- Service routes under `/(services)/*` (water, fire, mold, storm, commercial, construction, cleaning)
+- `/blogs`, `/blog/[slug]`, `/compare/[slug]`, `/contact`
+- `/privacy`, `/terms`, `/disclaimer`
+
+## Local
 
 ```bash
+npm install --legacy-peer-deps
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Optional form backend:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Without Supabase, the home contact form falls back to `mailto:`.
 
-## Learn More
+## Deploy note
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Vercel project `maxadjust` currently serves staging (`maxadjust-khaki.vercel.app`). Production `maxadjust.com` still points at the older Alpha deployment on a different Vercel account — cut over after local/RGDS validation.

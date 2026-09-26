@@ -18,28 +18,31 @@ export default function PhoneNumberButton({
 }: PhoneNumberButtonProps) {
     return (
         <Link
-            className={cn("flex flex-row items-center gap-sm", className)}
+            className={cn(
+                "ma-btn-secondary gap-4 no-underline text-inherit !min-h-[64px] md:!min-h-[72px]",
+                className,
+            )}
             href={cn("tel:", branding.phoneNumber)}
         >
             {!disableIcon && (
-                <div className="bg-primary rounded-full p-2 lg:p-3">
+                <div className="ma-icon-tile !w-12 !h-12 md:!w-14 md:!h-14 bg-primary">
                     <Icon
                         icon="solar:phone-calling-bold"
-                        className="size-6 lg:size-7 text-foreground"
+                        className="size-6 md:size-7 text-white"
                     />
                 </div>
             )}
 
-            <div className="flex flex-col gap-0">
+            <div className="flex flex-col gap-0.5 text-left">
                 <span
                     className={cn(
-                        "text-xs leading-[20px] text-black text-center text-nowrap",
-                        labelClassName
+                        "text-sm md:text-base leading-tight font-semibold opacity-80",
+                        labelClassName,
                     )}
                 >
                     {label}
                 </span>
-                <span className="text-lg lg:text-xl leading-[20px] text-nowrap">
+                <span className="text-lg md:text-xl lg:text-2xl font-black leading-tight tracking-tight">
                     {branding.phoneNumber}
                 </span>
             </div>

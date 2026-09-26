@@ -1,3 +1,7 @@
+import "@r3lentless/rgds-web/tokens.css";
+import "@r3lentless/rgds-web/components.css";
+import "@r3lentless/rgds-web/interaction.css";
+import "@r3lentless/rgds-web/form-factor.css";
 import "./globals.css";
 import cn from "~/lib/cn";
 import Header from "~/partials/header";
@@ -12,6 +16,7 @@ import { IntercomProvider } from "~/components/intercom-provider";
 import { Bounce, ToastContainer } from "react-toastify";
 import { ViewTransitions } from "next-view-transitions";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { RgdsBoot } from "~/components/rgds-boot";
 
 const outfit = Outfit({
     variable: "--font-outfit",
@@ -21,8 +26,9 @@ const outfit = Outfit({
 export const metadata: Metadata = {
     title: {
         template: `%s - ${branding.name}`,
-        default: branding.name,
-        absolute: branding.name,
+        default: "MAX ADJUST - Licensed Public Adjusters | Maximize Your Insurance Settlement",
+        absolute:
+            "MAX ADJUST - Licensed Public Adjusters | Maximize Your Insurance Settlement",
     },
     openGraph: {
         siteName: branding.name,
@@ -38,10 +44,15 @@ export default function RootLayout({
 }>) {
     return (
         <ViewTransitions>
-            <html lang="en">
+            <html lang="en" data-theme="primary-light">
                 <body
-                    className={cn("antialiased min-h-screen", outfit.className)}
+                    className={cn(
+                        "antialiased min-h-screen rgds-shell--adaptive",
+                        outfit.className,
+                        outfit.variable,
+                    )}
                 >
+                    <RgdsBoot />
                     <HeroUIProvider>
                         <Header />
                         {children}
@@ -58,7 +69,7 @@ export default function RootLayout({
                             pauseOnFocusLoss
                             draggable
                             pauseOnHover
-                            theme="dark"
+                            theme="light"
                             transition={Bounce}
                         />
                     </HeroUIProvider>

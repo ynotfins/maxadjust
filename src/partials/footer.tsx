@@ -181,7 +181,7 @@ export default function Footer() {
                         <ul className="flex flex-col gap-md text-gray-500 text-md">
                             <li>
                                 <Link
-                                    href="/privacy-policy"
+                                    href="/privacy"
                                     title="Read our Privacy Policy"
                                 >
                                     Privacy Policy
@@ -189,10 +189,18 @@ export default function Footer() {
                             </li>
                             <li>
                                 <Link
-                                    href="/terms-conditions"
-                                    title="Read our Terms & Conditions"
+                                    href="/terms"
+                                    title="Read our Terms of Service"
                                 >
-                                    Terms & Conditions
+                                    Terms of Service
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/disclaimer"
+                                    title="Read our Disclaimer"
+                                >
+                                    Disclaimer
                                 </Link>
                             </li>
                         </ul>

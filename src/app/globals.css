@@ -2,15 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --background: #ebebeb;
-    --foreground: #291700;
+:root,
+html[data-theme="primary-light"] {
+    --background: var(--md-sys-color-surface, #ffffff);
+    --foreground: var(--md-sys-color-on-surface, #0f172a);
+    --primary: var(--md-sys-color-primary, #2563eb);
+    --secondary: var(--md-sys-color-secondary, #ef4444);
+    --muted-foreground: #64748b;
 }
 
 body {
     color: var(--foreground);
     background: var(--background);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-outfit), system-ui, sans-serif;
 }
 
 @layer base {
@@ -25,6 +29,17 @@ body {
     a {
         @apply text-foreground dark:text-white;
     }
+}
+
+.text-gradient {
+    background: linear-gradient(
+        90deg,
+        var(--md-sys-color-primary, #2563eb),
+        var(--md-sys-color-secondary, #ef4444)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 @media (min-width: 1024px) {

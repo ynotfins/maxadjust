@@ -31,6 +31,8 @@
         "@mdx-js/react": "^3.1.0",
         "@next/mdx": "^15.1.6",
         "@next/third-parties": "^15.1.6",
+        "@r3lentless/rgds-web": "file:vendor/r3lentless-rgds-web-1.1.1.tgz",
+        "@supabase/supabase-js": "^2.117.2",
         "@tailwindcss/typography": "^0.5.16",
         "@types/mapbox-gl": "^3.4.1",
         "@types/mdx": "^2.0.13",

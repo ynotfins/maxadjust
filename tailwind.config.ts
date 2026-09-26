@@ -13,8 +13,18 @@ export default {
             colors: {
                 background: "var(--background)",
                 foreground: "var(--foreground)",
-                primary: "#efcd48",
-                secondary: "#efcd48",
+                primary: {
+                    DEFAULT: "var(--md-sys-color-primary, #2563EB)",
+                    foreground: "var(--md-sys-color-on-primary, #FFFFFF)",
+                },
+                secondary: {
+                    DEFAULT: "var(--md-sys-color-secondary, #EF4444)",
+                    foreground: "var(--md-sys-color-on-secondary, #FFFFFF)",
+                },
+                muted: {
+                    DEFAULT: "#F1F5F9",
+                    foreground: "var(--muted-foreground, #64748B)",
+                },
             },
             spacing: {
                 sm: "8px",

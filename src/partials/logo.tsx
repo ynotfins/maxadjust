@@ -5,16 +5,16 @@ export default function Logo() {
     return (
         <Link
             href="/"
-            aria-label="Branding Section"
-            aria-labelledby="Branding Section"
-            aria-description="Branding of the website"
+            aria-label="Max Adjust home"
+            className="inline-flex items-center shrink-0"
         >
             <Image
-                src="/assets/images/logo.png"
-                className="w-auto h-10 lg:h-14"
-                alt="Logo"
-                width={100}
-                height={100}
+                src="/assets/images/logo-maxadjust.svg"
+                className="w-auto h-9 md:h-11 lg:h-12"
+                alt="MAX ADJUST — Professional Representation"
+                width={260}
+                height={70}
+                priority
             />
         </Link>
     );

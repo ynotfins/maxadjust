@@ -60,8 +60,8 @@ export default function Home() {
 
     return (
         <main>
-            <HeroSection />
             <HomeCrisisSection />
+            <HeroSection />
             <IntroSection />
             <ClaimsSection />
             <ProcessSection />

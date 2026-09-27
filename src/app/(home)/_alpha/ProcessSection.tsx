@@ -160,14 +160,12 @@ export default function ProcessSection() {
                             </div>
 
                             <div className="text-center pt-4 border-t border-gray-100">
-                                <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-4">
+                                <div className="w-28 h-16 md:w-36 md:h-20 mx-auto mb-4 relative">
                                     <Image
-                                        src="https://aqfdwixvirtzccefysco.supabase.co/storage/v1/object/public/chat-image/1758765775951-moy0cl5st4.png"
+                                        src="/assets/images/logo-maxadjust.svg"
                                         alt="MAX ADJUST Logo"
-                                        width={96}
-                                        height={96}
-                                        className="w-full h-full object-contain"
-                                        crossOrigin="anonymous"
+                                        fill
+                                        className="object-contain"
                                     />
                                 </div>
                                 <a

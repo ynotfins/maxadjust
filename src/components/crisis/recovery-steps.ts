@@ -54,4 +54,5 @@ export const GUARDIAN_TIPS = [
     "Ask about Additional Living Expenses (ALE) when you open the claim.",
     "Keep every receipt for food, lodging, clothing, and emergency repairs.",
     "Never accept the first settlement offer without a careful review.",
+    "Upload your policy so we can sketch best-case and worst-case pathways.",
 ];

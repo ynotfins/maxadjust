@@ -15,7 +15,7 @@ export default function HeroSection() {
         <section
             id="hero-section"
             alpha-section-id="hero-section"
-            className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background pt-24 md:pt-28"
+            className="relative min-h-[70vh] md:min-h-[80vh] flex items-center justify-center overflow-hidden bg-background pt-10 md:pt-16"
         >
             <div className="absolute inset-0 -z-10 overflow-hidden">
                 <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl opacity-50 animate-pulse" />

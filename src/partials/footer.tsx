@@ -1,75 +1,106 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Bolt, Award, Handshake, TrendingUp } from "lucide-react";
 import { Link } from "next-view-transitions";
 import branding from "~/branding";
 import Icon from "~/components/icon";
 
-export default function Footer() {
-    const slides = [
-        {
-            icon: "material-symbols:bolt-rounded",
-            title: "Immediate Response",
-            description:
-                "If your home needs emergency cleaning, we're available 24/7 to respond to your call.",
-        },
-        {
-            icon: "tabler:award-filled",
-            title: "Certified Technicians",
-            description:
-                "We have 100+ certified cleaning products. All professionals have taken training in a variety of cleaning methods.",
-        },
-        {
-            icon: "streamline:insurance-hand-solid",
-            title: "We Work for You",
-            description:
-                "We will strategically navigate the insurance claims process and coordinate the necessary paperwork for a quicker, easier experience.",
-        },
-        {
-            icon: "solar:dollar-minimalistic-linear",
-            title: "Maximize Payment",
-            description:
-                "We maximize your payment from your insurance company, generally a substantial increase from what they would have offered you.",
-        },
-    ];
+const highlights = [
+    {
+        icon: Bolt,
+        title: "Immediate Response",
+        blurb: "24/7 when disaster hits",
+        color: "from-sky-400 to-blue-600",
+    },
+    {
+        icon: Award,
+        title: "Certified Pros",
+        blurb: "Licensed public adjusters",
+        color: "from-blue-500 to-indigo-600",
+    },
+    {
+        icon: Handshake,
+        title: "We Work for You",
+        blurb: "Never for the insurer",
+        color: "from-rose-500 to-red-600",
+    },
+    {
+        icon: TrendingUp,
+        title: "Maximize Payment",
+        blurb: "Fight for every dollar",
+        color: "from-red-500 to-orange-500",
+    },
+];
 
+/** Animated brand ribbon — replaces the old fire-photo feature strip. */
+export function AnimatedHighlightsBar() {
+    return (
+        <section
+            className="relative overflow-hidden py-14 md:py-16"
+            aria-label="Why Max Adjust"
+        >
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900" />
+            <motion.div
+                className="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-primary/30 blur-3xl"
+                animate={{ x: [0, 40, 0], y: [0, 30, 0], scale: [1, 1.15, 1] }}
+                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+                className="absolute -bottom-32 -right-20 w-96 h-96 rounded-full bg-secondary/25 blur-3xl"
+                animate={{ x: [0, -30, 0], y: [0, -40, 0], scale: [1, 1.2, 1] }}
+                transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <div className="absolute inset-0 opacity-[0.12] bg-[radial-gradient(circle_at_1px_1px,#fff_1px,transparent_0)] bg-[length:24px_24px]" />
+
+            <div className="container relative z-10 mx-auto px-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                    {highlights.map((item, index) => {
+                        const IconCmp = item.icon;
+                        return (
+                            <motion.article
+                                key={item.title}
+                                className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-5 md:p-6"
+                                initial={{ opacity: 0, y: 24 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.08, duration: 0.5 }}
+                                whileHover={{ y: -6, scale: 1.02 }}
+                            >
+                                <motion.div
+                                    className={`mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${item.color} text-white shadow-lg`}
+                                    animate={{ rotate: [0, 4, -4, 0] }}
+                                    transition={{
+                                        duration: 5,
+                                        repeat: Infinity,
+                                        delay: index * 0.4,
+                                    }}
+                                >
+                                    <IconCmp className="h-7 w-7" />
+                                </motion.div>
+                                <h3 className="text-white font-bold text-lg md:text-xl tracking-tight">
+                                    {item.title}
+                                </h3>
+                                <p className="mt-1 text-sm md:text-base text-slate-300">
+                                    {item.blurb}
+                                </p>
+                            </motion.article>
+                        );
+                    })}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+export default function Footer() {
     return (
         <footer
             className="flex flex-col mt-2xl"
             role="contentinfo"
             aria-label="Site footer"
         >
-            <section className="relative py-xl" aria-label="Company highlights">
-                <div className="absolute inset-0 bg-black/60 z-[2]" />
-                <div
-                    role="img"
-                    className="absolute inset-0 z-[1] bg-[url('/assets/images/fire-bg.avif')] bg-repeat bg-cover lg:bg-contain"
-                    aria-label="Background image of fire damage"
-                />
-                <div className="container relative z-[10]">
-                    <div className="grid grid-cols-1 gap-md sm:grid-cols-2 lg:grid-cols-4">
-                        {slides.map((slide, index) => (
-                            <article
-                                key={index}
-                                className="flex items-center gap-md"
-                            >
-                                <div className="flex flex-col justify-center">
-                                    <Icon
-                                        icon={slide.icon}
-                                        className="text-white size-16"
-                                        aria-hidden="true"
-                                    />
-                                </div>
-                                <div className="flex flex-col">
-                                    <h3 className="text-white font-semibold text-xl tracking-tighter">
-                                        {slide.title}
-                                    </h3>
-                                    <p className="text-sm text-gray-200">
-                                        {slide.description}
-                                    </p>
-                                </div>
-                            </article>
-                        ))}
-                    </div>
-                </div>
-            </section>
+            <AnimatedHighlightsBar />
 
             <section className="flex flex-col gap-4xl min-h-[30vh] w-full page-borders !py-24">
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-2xl">
@@ -83,172 +114,99 @@ export default function Footer() {
 
                         <ul className="flex flex-col gap-md text-gray-500 text-md">
                             <li>
-                                <Link
-                                    href="/water-damage"
-                                    title="Water Damage Services"
-                                >
+                                <Link href="/water-damage" title="Water Damage Services">
                                     Water Damage
                                 </Link>
                             </li>
                             <li>
-                                <Link
-                                    href="/fire-damage"
-                                    title="Fire Damage Services"
-                                >
+                                <Link href="/fire-damage" title="Fire Damage Services">
                                     Fire Damage
                                 </Link>
                             </li>
                             <li>
-                                <Link
-                                    href="/mold-damage"
-                                    title="Mold Remediation Services"
-                                >
-                                    Mold Remediation
+                                <Link href="/storm-damage" title="Storm Damage Services">
+                                    Storm Damage
                                 </Link>
                             </li>
                             <li>
-                                <Link
-                                    href="/storm-damage"
-                                    title="Storm and Disaster Services"
-                                >
-                                    Storm/Disaster
+                                <Link href="/mold-damage" title="Mold Damage Services">
+                                    Mold Damage
                                 </Link>
                             </li>
                             <li>
-                                <Link
-                                    href="/construction"
-                                    title="Construction Services"
-                                >
+                                <Link href="/commercial" title="Commercial Services">
+                                    Commercial
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/construction" title="Construction Services">
                                     Construction
                                 </Link>
                             </li>
+                        </ul>
+                    </nav>
+
+                    <nav className="flex flex-col gap-lg" aria-label="Company">
+                        <h3 className="text-xl text-primary border-b-2 border-primary pb-2">
+                            Company
+                        </h3>
+                        <ul className="flex flex-col gap-md text-gray-500 text-md">
                             <li>
-                                <Link
-                                    href="/commercial"
-                                    title="Commercial Services"
-                                >
-                                    Commercial Services
-                                </Link>
+                                <Link href="/contact">Contact</Link>
+                            </li>
+                            <li>
+                                <Link href="/blogs">Blogs</Link>
+                            </li>
+                            <li>
+                                <a href={`tel:${branding.phoneNumber.replace(/\D/g, "")}`}>
+                                    {branding.phoneNumber}
+                                </a>
+                            </li>
+                            <li>
+                                <a href={`mailto:${branding.email}`}>{branding.email}</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <nav className="flex flex-col gap-lg" aria-label="Legal navigation">
+                        <h3 className="text-xl text-primary border-b-2 border-primary pb-2">
+                            Legal
+                        </h3>
+                        <ul className="flex flex-col gap-md text-gray-500 text-md">
+                            <li>
+                                <Link href="/privacy">Privacy</Link>
+                            </li>
+                            <li>
+                                <Link href="/terms">Terms</Link>
+                            </li>
+                            <li>
+                                <Link href="/disclaimer">Disclaimer</Link>
                             </li>
                         </ul>
                     </nav>
 
                     <div className="flex flex-col gap-lg">
                         <h3 className="text-xl text-primary border-b-2 border-primary pb-2">
-                            Quick Contact
+                            {branding.name}
                         </h3>
-
-                        <address className="text-gray-500 text-md not-italic">
-                            <div>
-                                Email:{" "}
-                                <Link
-                                    href={`mailto:${branding.email}`}
-                                    className="text-primary"
-                                    title="Send us an email"
-                                >
-                                    {branding.email}
-                                </Link>
-                            </div>
-                            <div>
-                                Phone:{" "}
-                                <Link
-                                    href={`tel:${branding.phoneNumber}`}
-                                    className="text-primary"
-                                    title="Call us"
-                                >
-                                    {branding.phoneNumber}
-                                </Link>
-                            </div>
-                            <div>
-                                Headquarter:{" "}
-                                <span
-                                    dangerouslySetInnerHTML={{
-                                        __html: branding.primaryAddress,
-                                    }}
-                                />
-                            </div>
-                        </address>
+                        <p
+                            className="text-gray-500 text-md leading-relaxed"
+                            dangerouslySetInnerHTML={{
+                                __html: branding.primaryAddress,
+                            }}
+                        />
+                        <div className="flex items-center gap-3 text-primary">
+                            <Icon icon="mdi:shield-check" className="size-6" />
+                            <span className="font-semibold">
+                                Licensed public adjusters
+                            </span>
+                        </div>
                     </div>
-
-                    <nav
-                        className="flex flex-col gap-lg"
-                        aria-label="Legal navigation"
-                    >
-                        <h3 className="text-xl text-primary border-b-2 border-primary pb-2">
-                            Legal
-                        </h3>
-
-                        <ul className="flex flex-col gap-md text-gray-500 text-md">
-                            <li>
-                                <Link
-                                    href="/privacy"
-                                    title="Read our Privacy Policy"
-                                >
-                                    Privacy Policy
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="/terms"
-                                    title="Read our Terms of Service"
-                                >
-                                    Terms of Service
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="/disclaimer"
-                                    title="Read our Disclaimer"
-                                >
-                                    Disclaimer
-                                </Link>
-                            </li>
-                        </ul>
-                    </nav>
                 </div>
 
-                <div className="flex flex-col gap-md">
-                    <hr className="border-t border-gray-300 my-4" />
-
-                    <div className="flex flex-row justify-between">
-                        <p className="text-sm text-gray-500">
-                            <small>
-                                © {new Date().getFullYear()}{" "}
-                                {branding.legalName.short}. License # 1664823.
-                                All rights reserved.
-                            </small>
-                        </p>
-
-                        <nav
-                            className="flex flex-row gap-1"
-                            aria-label="Social media links"
-                        >
-                            <Link href="#" aria-label="Visit our Facebook page">
-                                <Icon
-                                    icon="mdi:facebook"
-                                    className="text-gray-500 size-6"
-                                    aria-hidden="true"
-                                />
-                            </Link>
-                            <Link href="#" aria-label="Visit our Twitter page">
-                                <Icon
-                                    icon="mdi:twitter"
-                                    className="text-gray-500 size-6"
-                                    aria-hidden="true"
-                                />
-                            </Link>
-                            <Link
-                                href="#"
-                                aria-label="Visit our Instagram page"
-                            >
-                                <Icon
-                                    icon="mdi:instagram"
-                                    className="text-gray-500 size-6"
-                                    aria-hidden="true"
-                                />
-                            </Link>
-                        </nav>
-                    </div>
+                <div className="border-t border-gray-200 pt-8 text-center text-sm text-gray-500">
+                    © {new Date().getFullYear()} {branding.legalName.long}. All rights
+                    reserved.
                 </div>
             </section>
         </footer>

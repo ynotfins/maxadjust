@@ -3,7 +3,6 @@
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import Image from 'next/image';
 
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -11,42 +10,42 @@ export default function TestimonialsSection() {
   const testimonials = [
     {
       name: "Francis H.",
-      avatar: "https://aqfdwixvirtzccefysco.supabase.co/storage/v1/object/public/chat-image//alpha-face-21.jpg",
+      initials: "FH",
       rating: 5,
       text: "MAX ADJUST helped me get 3x more than what my insurance company initially offered. Professional and knowledgeable team!",
       amount: "$45,000"
     },
     {
       name: "Jacqueline G.",
-      avatar: "https://aqfdwixvirtzccefysco.supabase.co/storage/v1/object/public/chat-image//alpha-face-17.jpg",
+      initials: "JG",
       rating: 5,
       text: "After the fire damage to my home, MAX ADJUST fought for every penny I deserved. Couldn't be happier with the results.",
       amount: "$67,000"
     },
     {
       name: "Lillie W.",
-      avatar: "https://aqfdwixvirtzccefysco.supabase.co/storage/v1/object/public/chat-image//alpha-face-14.jpg",
+      initials: "LW",
       rating: 5,
       text: "Water damage claim was handled professionally. They got me significantly more than I expected from my insurance.",
       amount: "$32,000"
     },
     {
       name: "Brandie G.",
-      avatar: "https://aqfdwixvirtzccefysco.supabase.co/storage/v1/object/public/chat-image//alpha-face-10.jpg",
+      initials: "BG",
       rating: 5,
       text: "Storm damage to our business was devastating, but MAX ADJUST made sure we got the full settlement we deserved.",
       amount: "$125,000"
     },
     {
       name: "Willard B.",
-      avatar: "https://aqfdwixvirtzccefysco.supabase.co/storage/v1/object/public/chat-image//alpha-face-23.jpg",
+      initials: "WB",
       rating: 5,
       text: "Excellent service and communication throughout the entire claims process. Highly recommend MAX ADJUST.",
       amount: "$28,000"
     },
     {
       name: "Tobias M.",
-      avatar: "https://aqfdwixvirtzccefysco.supabase.co/storage/v1/object/public/chat-image//alpha-face-4.jpg",
+      initials: "TM",
       rating: 5,
       text: "They turned what seemed like a hopeless situation into a successful claim. Amazing results!",
       amount: "$89,000"
@@ -98,14 +97,8 @@ export default function TestimonialsSection() {
               >
                 <div className="glass-card rounded-[2rem] p-8 md:p-12 h-full flex flex-col md:flex-row gap-8 items-center md:items-start">
                   <div className="flex-shrink-0">
-                    <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                      <Image
-                        src={testimonials[currentIndex].avatar}
-                        alt={testimonials[currentIndex].name}
-                        fill
-                        className="object-cover"
-                        crossOrigin="anonymous"
-                      />
+                    <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-white shadow-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-xl md:text-2xl font-bold tracking-wide">
+                      {testimonials[currentIndex].initials}
                     </div>
                   </div>
                   

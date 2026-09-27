@@ -11,10 +11,11 @@ export default function Logo() {
             <Image
                 src="/assets/images/logo-maxadjust.svg"
                 className="w-auto h-9 md:h-11 lg:h-12"
-                alt="MAX ADJUST — Professional Representation"
+                alt="MAX ADJUST Professional Representation"
                 width={260}
                 height={70}
                 priority
+                unoptimized
             />
         </Link>
     );

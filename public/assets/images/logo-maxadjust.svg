@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 140" role="img" aria-label="MAX ADJUST  Professional Representation">
+  <defs>
+    <linearGradient id="maBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+  </defs>
+  <!-- Column icon -->
+  <g fill="url(#maBlue)">
+    <rect x="18" y="28" width="10" height="62" rx="1.5"/>
+    <rect x="34" y="28" width="10" height="62" rx="1.5"/>
+    <rect x="50" y="28" width="10" height="62" rx="1.5"/>
+    <rect x="66" y="28" width="10" height="62" rx="1.5"/>
+    <path d="M12 22h70c2 0 4 1.5 4 4v6H8v-6c0-2.5 2-4 4-4z"/>
+    <path d="M8 90h78v8H8z"/>
+    <path d="M4 98h86v6c0 2-1.5 4-4 4H8c-2.5 0-4-2-4-4v-6z"/>
+  </g>
+  <!-- Red swoop -->
+  <path d="M8 108 C 90 108, 140 72, 210 58" fill="none" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+  <!-- Wordmark -->
+  <text x="100" y="72" font-family="Georgia, 'Times New Roman', serif" font-size="52" font-weight="700" letter-spacing="1">
+    <tspan fill="#2563EB">MAX</tspan>
+    <tspan dx="10" fill="#EF4444">ADJUST</tspan>
+  </text>
+  <text x="100" y="108" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-style="italic" fill="#2563EB">Professional Representation</text>
+</svg>

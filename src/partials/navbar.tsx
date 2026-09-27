@@ -12,41 +12,45 @@ import {
     DropdownMenu,
     DropdownItem,
 } from "@heroui/dropdown";
-import { ChevronDownIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { ChevronDownIcon, Menu } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import cn from "~/lib/cn";
+
+const links = [
+    { href: "/", label: "Home" },
+    { href: "/blogs", label: "Blogs" },
+    { href: "/contact", label: "Contact Us" },
+];
 
 export default function Navbar() {
     const { isOpen, onOpenChange } = useDisclosure();
     const router = useRouter();
+    const pathname = usePathname();
+
+    const navLinkClass = (active: boolean) =>
+        cn(
+            "relative px-3 py-2 text-sm md:text-base font-semibold rounded-xl transition-all duration-200",
+            active
+                ? "text-primary bg-primary/8"
+                : "text-slate-700 hover:text-primary hover:bg-primary/5",
+        );
 
     return (
         <>
-            {/* Mobile Menu Button */}
             <button
                 onClick={onOpenChange}
-                className="md:hidden flex flex-col items-center justify-center text-gray-400 gap-0"
+                className="md:hidden inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white p-2.5 text-slate-700 shadow-sm"
                 aria-label="Toggle navigation menu"
             >
-                <svg width="48" height="29" viewBox="0 0 48 29" fill="none">
-                    {[27.7, 18.3, 9].map((y, i) => (
-                        <path
-                            key={i}
-                            d={`M47.2 ${y}L23.7 ${y - 7.3}L0.3 ${y}`}
-                            stroke="#291700"
-                            strokeWidth="2"
-                        />
-                    ))}
-                </svg>
-                <span className="text-sm">Menu</span>
+                <Menu className="w-6 h-6" />
             </button>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:block">
-                <ul className="flex items-center space-x-8">
+            <nav className="hidden md:block" aria-label="Primary">
+                <ul className="flex items-center gap-1 lg:gap-2">
                     <li>
                         <Link
                             href="/"
-                            className="hover:text-primary transition-colors"
+                            className={navLinkClass(pathname === "/")}
                         >
                             Home
                         </Link>
@@ -54,19 +58,31 @@ export default function Navbar() {
                     <li>
                         <Dropdown>
                             <DropdownTrigger>
-                                <button className="flex items-center gap-1 hover:text-primary transition-colors">
-                                    Services{" "}
-                                    <ChevronDownIcon className="h-4 w-4" />
+                                <button
+                                    className={cn(
+                                        navLinkClass(
+                                            pathname?.includes("damage") ||
+                                                pathname?.includes("cleaning") ||
+                                                pathname?.includes("commercial") ||
+                                                pathname?.includes("construction"),
+                                        ),
+                                        "inline-flex items-center gap-1",
+                                    )}
+                                >
+                                    Services
+                                    <ChevronDownIcon className="h-4 w-4 opacity-70" />
                                 </button>
                             </DropdownTrigger>
-                            <DropdownMenu aria-label="Services navigation">
+                            <DropdownMenu
+                                aria-label="Services navigation"
+                                className="min-w-[220px]"
+                            >
                                 {services.map((service) => (
                                     <DropdownItem
                                         key={service.id || service.label}
                                         onPress={() =>
                                             router.push(service.href)
                                         }
-                                        className="hover:text-primary transition-colors"
                                     >
                                         {service.label}
                                     </DropdownItem>
@@ -74,26 +90,22 @@ export default function Navbar() {
                             </DropdownMenu>
                         </Dropdown>
                     </li>
-                    <li>
-                        <Link
-                            href="/blogs"
-                            className="hover:text-primary transition-colors"
-                        >
-                            Blogs
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            href="/contact"
-                            className="hover:text-primary transition-colors"
-                        >
-                            Contact Us
-                        </Link>
-                    </li>
+                    {links.slice(1).map((link) => (
+                        <li key={link.href}>
+                            <Link
+                                href={link.href}
+                                className={navLinkClass(
+                                    pathname === link.href ||
+                                        pathname?.startsWith(link.href + "/"),
+                                )}
+                            >
+                                {link.label}
+                            </Link>
+                        </li>
+                    ))}
                 </ul>
             </nav>
 
-            {/* Mobile Drawer */}
             <Drawer
                 isOpen={isOpen}
                 onOpenChange={onOpenChange}
@@ -101,33 +113,30 @@ export default function Navbar() {
             >
                 <DrawerContent>
                     <DrawerBody>
-                        <div className="flex flex-col h-full justify-center gap-xl md:px-xl pb-md">
+                        <div className="flex flex-col h-full justify-center gap-8 px-2 pb-6">
                             <Logo />
-                            <div className="flex flex-col text-md">
-                                <Link
-                                    href="/"
-                                    className="transition-all duration-300"
-                                >
+                            <div className="flex flex-col gap-2 text-lg font-semibold">
+                                <Link href="/" className="py-2">
                                     Home
                                 </Link>
                                 {services.map((service) => (
                                     <Link
                                         key={service.id || service.label}
                                         href={service.href}
-                                        className="transition-all duration-300"
+                                        className="py-2 text-base font-medium text-slate-600"
                                     >
                                         {service.label}
                                     </Link>
                                 ))}
-                                <Link
-                                    href="/blogs"
-                                    className="transition-all duration-300"
-                                >
+                                <Link href="/blogs" className="py-2">
                                     Blogs
+                                </Link>
+                                <Link href="/contact" className="py-2">
+                                    Contact Us
                                 </Link>
                             </div>
                             <PhoneNumberButton
-                                className="mt-md"
+                                className="mt-2"
                                 labelClassName="text-start"
                             />
                         </div>

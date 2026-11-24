@@ -112,3 +112,65 @@ authority_maintainer + AUTH id + rollback + validators + independent review. Do 
 Operator issued the unlock explicitly on 2026-11-24 (`UNLOCK README.md`, `UNLOCK AGENTS.md`, `UNLOCK NFA_ALIGNMENT.md`), scoped to this entry's proposed wording only. The three files were edited verbatim against verified source on branch `docs/unlock-workers-hosting` (commit `98b11f3`); no other section of those files changed. docs-guardian re-ran after the edit.
 
 DNS and live-host facts re-confirmed by the caller before applying: apex `maxadjust.com` and `www` are proxied CNAMEs to `maxadjust.ynotfins.workers.dev`; `curl -sI https://maxadjust.com` returns 200 from `server: cloudflare`; `www` returns 308 to the apex. The Vercel project was deleted by the operator on 2026-11-24 (Vercel API now returns 404 for `prj_S7Lu3kbcvjTDCLek3wpPrB8fxbvX`).
+
+## 2026-11-24-readme-lead-intake-server-side
+
+- class: governed-doc-drift
+- status: proposed (not applied)
+- file: `README.md` (repo root)
+- authority: Tier 2 `operator_locked` — universal fallback (no `contracts/authority-lock.yaml`). The prior unlock (`docs/unlock-workers-hosting`) was consumed and closed; README.md is locked again.
+- date: 2026-11-24
+- memory: NOT_AVAILABLE (gateway not queried this pass — same unresolved state as the 2026-10-18 entry; not blocking, ledger is primary record)
+
+### Why
+
+Commit `c4c60d1` (PR #10, merged `bc8e3600`) moved lead intake from a client-side Supabase insert to a server route, `POST /api/leads`. `README.md:36-43` still describes the old shape: it names only `NEXT_PUBLIC_SUPABASE_URL`/`NEXT_PUBLIC_SUPABASE_ANON_KEY` as the env vars and says the forms "insert into a Supabase `public.leads` table" directly. That is no longer true — the browser never touches Supabase now — and the paragraph omits three material facts: the `/api/leads` route, the honeypot/timing/rate-limit filters, and that the Supabase credentials are now Worker secrets named `SUPABASE_URL`/`SUPABASE_ANON_KEY` (with the `NEXT_PUBLIC_*` names kept only as a server-side fallback, not for browser use).
+
+### Proposed
+
+**`README.md`** — form-backend paragraph (`README.md:36-43`), replace the env block and sentence:
+
+- current:
+  ```
+  Optional form backend:
+
+  ```
+  NEXT_PUBLIC_SUPABASE_URL=
+  NEXT_PUBLIC_SUPABASE_ANON_KEY=
+  ```
+
+  Home (`/`) and `/contact` both insert into a Supabase `public.leads` table (insert-only via RLS for anon). Without Supabase env vars configured, the home contact form falls back to `mailto:`.
+  ```
+- proposed:
+  ```
+  Optional form backend:
+
+  ```
+  SUPABASE_URL=
+  SUPABASE_ANON_KEY=
+  ```
+
+  Home (`/`) and `/contact` both POST to `POST /api/leads`, a server route that validates the payload, drops submissions caught by an honeypot field or a sub-2-second fill time, applies a per-IP rate limit (`LEAD_RATE_LIMITER` Workers binding, approximate by design — not a hard cap), then inserts into Supabase `public.leads` (insert-only via RLS for anon) using server-only credentials. The browser never holds a Supabase key. Without Supabase configured, `/api/leads` returns 503 and both forms fall back to `mailto:`.
+  ```
+
+### Source evidence
+
+- `src/app/api/leads/route.ts:1-114` (new in `c4c60d1`) — honeypot (`company` field), `MIN_FILL_MS = 2000`, `LIMITS` field caps, `LEAD_RATE_LIMITER.limit()`, `getSupabase().from("leads").insert(...)`, 503 on `not_configured`, 429 on rate limit, 422 on invalid payload.
+- `src/lib/supabase.ts:6-16` — `getSupabase()` now reads `process.env.SUPABASE_URL ?? NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_ANON_KEY ?? NEXT_PUBLIC_SUPABASE_ANON_KEY`; doc comment states it is server-only since the intake moved to `/api/leads`.
+- `src/app/(home)/_alpha/ContactSection.tsx` and `src/app/contact/page.tsx` (diffed in `c4c60d1`) — both now `fetch("/api/leads", ...)` with `company` honeypot + `elapsedMs`, keep `mailto:` fallback on non-OK response; neither imports `supabase-js` any longer.
+- `wrangler.jsonc` — added `ratelimits: [{ name: "LEAD_RATE_LIMITER", namespace_id: "1001", simple: { limit: 5, period: 60 } }]`.
+- Caller-verified this session (not independently re-verified by docs-guardian): production 200s on `/`, `/contact`, `/health`, `/blogs`; honeypot/sub-2s submissions return `{ok:true}` with no row; bad email → 422; valid submission → row written; an 8-request burst did not trip the rate limit (consistent with Cloudflare's own "approximate" documentation for this binding type, so the proposed wording avoids claiming a hard cap); built client assets contain zero occurrences of the Supabase URL or anon key.
+
+### Unproven / do not let docs assert as fact
+
+- Whether the per-IP rate limit reliably blocks at 5 req/60s under real abuse — Cloudflare documents this binding as approximate, and the caller's 8-request burst did not trip it. The proposed wording says "approximate by design — not a hard cap" rather than describing it as an enforced ceiling.
+- Honeypot and timing-gate effectiveness against a scripted (non-browser) bot that simply waits 2s and leaves `company` blank — not tested this session. No doc claims the filters are bot-proof; none should.
+- No Turnstile/CAPTCHA exists in this flow — true by its absence from the diff, not asserted as a design choice in any doc; no action needed since nothing documents its presence.
+
+### Requires
+
+authority_maintainer + AUTH id + rollback + validators + independent review. Do not auto-apply.
+
+### Applied
+
+Not applied. Awaiting operator `UNLOCK README.md` or equivalent governed-doc process.

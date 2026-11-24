@@ -7,11 +7,14 @@ import { Checkbox } from "@heroui/checkbox";
 import { z } from "zod";
 import { Link } from "next-view-transitions";
 import { toast } from "react-toastify";
+import { useRef, useState } from "react";
 import branding from "~/branding";
-import { getSupabase } from "@/lib/supabase";
 import { projectId } from "~/system-settings";
 
 export default function Contact() {
+    const [honeypot, setHoneypot] = useState("");
+    const startedAt = useRef(Date.now());
+
     const formData = useForm({
         initialValues: {
             name: "",
@@ -30,33 +33,45 @@ export default function Contact() {
             }),
         }),
         onSubmit: async (values, self) => {
-            const client = getSupabase();
-
-            if (client) {
-                const { error } = await client.from("leads").insert({
-                    name: values.name,
-                    email: values.email,
-                    message: values.message,
-                    source: "contact",
-                    meta: {
-                        phone: values.phoneNumber,
-                        optIn: values.optIn,
-                        projectId,
-                    },
+            try {
+                const response = await fetch("/api/leads", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        name: values.name,
+                        email: values.email,
+                        message: values.message,
+                        source: "contact",
+                        meta: {
+                            phone: values.phoneNumber,
+                            optIn: values.optIn,
+                            projectId,
+                        },
+                        company: honeypot,
+                        elapsedMs: Date.now() - startedAt.current,
+                    }),
                 });
-                if (error) {
-                    console.error("Error submitting form:", error);
-                    toast.error(
-                        "We could not send that message. Please call us instead."
+
+                if (!response.ok) {
+                    if (response.status === 429) {
+                        toast.error(
+                            "Too many messages from this connection. Please try again in a minute."
+                        );
+                        return;
+                    }
+                    const subject = encodeURIComponent("Free Claim Evaluation");
+                    const body = encodeURIComponent(
+                        `Name: ${values.name}\nEmail: ${values.email}\nPhone: ${values.phoneNumber}\n\n${values.message}`
                     );
+                    window.location.href = `mailto:${branding.email}?subject=${subject}&body=${body}`;
                     return;
                 }
-            } else {
-                const subject = encodeURIComponent("Free Claim Evaluation");
-                const body = encodeURIComponent(
-                    `Name: ${values.name}\nEmail: ${values.email}\nPhone: ${values.phoneNumber}\n\n${values.message}`
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                toast.error(
+                    "We could not send that message. Please call us instead."
                 );
-                window.location.href = `mailto:${branding.email}?subject=${subject}&body=${body}`;
+                return;
             }
 
             self.resetForm();
@@ -151,6 +166,28 @@ export default function Contact() {
                             </Link>
                         </p>
                     </div>
+                </div>
+
+                <div
+                    aria-hidden="true"
+                    style={{
+                        position: "absolute",
+                        left: "-9999px",
+                        width: "1px",
+                        height: "1px",
+                        overflow: "hidden",
+                    }}
+                >
+                    <label htmlFor="company">Company</label>
+                    <input
+                        type="text"
+                        id="company"
+                        name="company"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={honeypot}
+                        onChange={(e) => setHoneypot(e.target.value)}
+                    />
                 </div>
 
                 <Button color="primary" onPress={() => formData.handleSubmit()}>

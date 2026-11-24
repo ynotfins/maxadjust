@@ -2,8 +2,7 @@
 
 import { Phone, Mail, MapPin, ArrowRight, CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { getSupabase } from "@/lib/supabase";
+import { useState, useRef } from "react";
 import { projectId } from "@/system-settings";
 import branding from "~/branding";
 
@@ -16,6 +15,8 @@ export default function ContactSection() {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [honeypot, setHoneypot] = useState("");
+    const startedAt = useRef(Date.now());
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -29,23 +30,29 @@ export default function ContactSection() {
         setIsSubmitting(true);
 
         try {
-            const client = getSupabase();
-            if (client) {
-                const { error } = await client.from("leads").insert({
+            const response = await fetch("/api/leads", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
                     name: formData.name,
                     email: formData.email,
                     message: formData.message,
                     source: "home",
                     meta: { phone: formData.phone, projectId },
-                });
-                if (error) throw error;
-            } else {
+                    company: honeypot,
+                    elapsedMs: Date.now() - startedAt.current,
+                }),
+            });
+
+            if (!response.ok) {
                 const subject = encodeURIComponent("Free Claim Evaluation");
                 const body = encodeURIComponent(
                     `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\n${formData.message}`,
                 );
                 window.location.href = `mailto:${branding.email}?subject=${subject}&body=${body}`;
+                return;
             }
+
             setIsSubmitted(true);
             setFormData({ name: "", email: "", phone: "", message: "" });
         } catch (error) {
@@ -251,6 +258,32 @@ export default function ContactSection() {
                                             className="ma-input"
                                             style={{ minHeight: "8rem" }}
                                             placeholder="Please describe the damage to your property and when it occurred"
+                                        />
+                                    </div>
+
+                                    <div
+                                        aria-hidden="true"
+                                        style={{
+                                            position: "absolute",
+                                            left: "-9999px",
+                                            width: "1px",
+                                            height: "1px",
+                                            overflow: "hidden",
+                                        }}
+                                    >
+                                        <label htmlFor="company">
+                                            Company
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="company"
+                                            name="company"
+                                            tabIndex={-1}
+                                            autoComplete="off"
+                                            value={honeypot}
+                                            onChange={(e) =>
+                                                setHoneypot(e.target.value)
+                                            }
                                         />
                                     </div>
 

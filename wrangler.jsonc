@@ -1,0 +1,29 @@
+{
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "maxadjust",
+    "main": ".open-next/worker.js",
+    "workers_dev": true,
+    "compatibility_date": "2026-11-16",
+    "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+    "assets": {
+        "directory": ".open-next/assets",
+        "binding": "ASSETS"
+    },
+    "routes": [
+        { "pattern": "maxadjust.com/*", "zone_name": "maxadjust.com" },
+        { "pattern": "www.maxadjust.com/*", "zone_name": "maxadjust.com" }
+    ],
+    "services": [
+        {
+            "binding": "WORKER_SELF_REFERENCE",
+            "service": "maxadjust"
+        }
+    ],
+    "images": {
+        "binding": "IMAGES"
+    },
+    "observability": {
+        "enabled": true
+    },
+    "keep_vars": true
+}

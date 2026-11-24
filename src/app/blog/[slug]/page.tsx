@@ -2,7 +2,7 @@ import React from "react";
 import { allPosts } from "content-collections";
 import { notFound } from "next/navigation";
 import BlogPage from "~/templates/blog-page";
-import { MDXContent } from "@content-collections/mdx/react";
+import { MdxContent } from "~/components/mdx-content";
 import { Metadata } from "next";
 import PromotionalCallout from "~/components/promotional-callout";
 
@@ -33,7 +33,7 @@ export default async function Page({
             summary={post.summary}
             relevantPosts={relevantPosts}
         >
-            <MDXContent code={post.mdx} components={{ PromotionalCallout }} />
+            <MdxContent service={post.service} slug={post.slug} components={{ PromotionalCallout }} />
         </BlogPage>
     );
 }

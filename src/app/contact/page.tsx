@@ -8,6 +8,8 @@ import { z } from "zod";
 import { Link } from "next-view-transitions";
 import { toast } from "react-toastify";
 import branding from "~/branding";
+import { getSupabase } from "@/lib/supabase";
+import { projectId } from "~/system-settings";
 
 export default function Contact() {
     const formData = useForm({
@@ -27,9 +29,37 @@ export default function Contact() {
                 message: "You must check all the checkboxes",
             }),
         }),
-        onSubmit: (values, self) => {
+        onSubmit: async (values, self) => {
+            const client = getSupabase();
+
+            if (client) {
+                const { error } = await client.from("leads").insert({
+                    name: values.name,
+                    email: values.email,
+                    message: values.message,
+                    source: "contact",
+                    meta: {
+                        phone: values.phoneNumber,
+                        optIn: values.optIn,
+                        projectId,
+                    },
+                });
+                if (error) {
+                    console.error("Error submitting form:", error);
+                    toast.error(
+                        "We could not send that message. Please call us instead."
+                    );
+                    return;
+                }
+            } else {
+                const subject = encodeURIComponent("Free Claim Evaluation");
+                const body = encodeURIComponent(
+                    `Name: ${values.name}\nEmail: ${values.email}\nPhone: ${values.phoneNumber}\n\n${values.message}`
+                );
+                window.location.href = `mailto:${branding.email}?subject=${subject}&body=${body}`;
+            }
+
             self.resetForm();
-            console.log(values);
             toast.success(
                 "Thank you for your message! We will get back to you soon."
             );

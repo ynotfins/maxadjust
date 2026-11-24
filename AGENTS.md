@@ -28,7 +28,7 @@ homeowner portal UX contract. Do not invent a second navigator.
 
 - Cursor and Devin may write. Other agents are read-only unless the operator opens this repo.
 - Do not add `DECISIONS.md`, `STATE.md`, `DATABASE.md`, or payment/design copies from nfa-platform.
-- Production today is this repo on Vercel at https://maxadjust.com. A later move off Vercel is not prepared here.
+- Production today is this repo on Cloudflare Workers (via @opennextjs/cloudflare + wrangler) at https://maxadjust.com. Vercel is no longer used.
 
 ## Documentation Integrity
 

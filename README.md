@@ -8,7 +8,7 @@ Canonical Next.js site for **maxadjust.com**.
 | --- | --- |
 | Visual system | [R3lentless-Grind Design System (RGDS)](https://github.com/R3lentless-Grind/r3lentless-grind-design-system) — theme `primary-light` |
 | Brand colors | Live maxadjust.com / logo: primary `#2563EB`, secondary `#EF4444`, accent `#F97316` |
-| Hosting today | Vercel (migrating to local) |
+| Hosting today | Cloudflare Workers (via @opennextjs/cloudflare + wrangler). No longer on Vercel. |
 | Related archives (do not develop further) | `Alpha_Page_Max_Adjust`, `MAX-ADJUST-WHM` |
 
 ## Stack
@@ -31,6 +31,8 @@ npm install --legacy-peer-deps
 npm run dev
 ```
 
+To run the Cloudflare Workers build locally: `npm run preview` (builds with `@opennextjs/cloudflare` and serves via `wrangler`). Use a port other than 8787 — that port is owned by the NFA worker on this machine.
+
 Optional form backend:
 
 ```
@@ -38,8 +40,8 @@ NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
 
-Without Supabase, the home contact form falls back to `mailto:`.
+Home (`/`) and `/contact` both insert into a Supabase `public.leads` table (insert-only via RLS for anon). Without Supabase env vars configured, the home contact form falls back to `mailto:`.
 
 ## Deploy note
 
-Vercel project `maxadjust` currently serves staging (`maxadjust-khaki.vercel.app`). Production `maxadjust.com` still points at the older Alpha deployment on a different Vercel account — cut over after local/RGDS validation.
+Production https://maxadjust.com is served from Cloudflare Workers (project name `maxadjust`, zone `maxadjust.com`, routes for apex and `www`). Deploy via `npm run deploy` (opennextjs-cloudflare build + wrangler deploy). Vercel is no longer used for this site.

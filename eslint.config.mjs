@@ -10,6 +10,10 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+    {
+        // MDX compiled at build time by scripts/generate-mdx.mjs
+        ignores: ["src/generated/**", ".open-next/**"],
+    },
     ...compat.extends("next/core-web-vitals", "next/typescript"),
     {
         rules: {

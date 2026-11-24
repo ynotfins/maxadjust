@@ -19,6 +19,14 @@
 # content collections cache
 /.content-collections/
 
+# MDX compiled at build time
+/src/generated/
+
+# Cloudflare Workers (OpenNext)
+/.open-next/
+/.wrangler/
+.dev.vars*
+
 # misc
 .DS_Store
 *.pem

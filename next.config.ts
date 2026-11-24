@@ -4,6 +4,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
     images: {
+        // OpenNext's image handler only allows qualities listed here (default: [75]).
+        qualities: [75, 90, 95],
         remotePatterns: [
             {
                 protocol: "https",

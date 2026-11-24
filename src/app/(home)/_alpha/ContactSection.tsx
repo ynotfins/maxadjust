@@ -31,10 +31,12 @@ export default function ContactSection() {
         try {
             const client = getSupabase();
             if (client) {
-                const { error } = await client.from("forms").insert({
-                    projectId: projectId,
-                    title: "contact-form",
-                    submission: formData,
+                const { error } = await client.from("leads").insert({
+                    name: formData.name,
+                    email: formData.email,
+                    message: formData.message,
+                    source: "home",
+                    meta: { phone: formData.phone, projectId },
                 });
                 if (error) throw error;
             } else {

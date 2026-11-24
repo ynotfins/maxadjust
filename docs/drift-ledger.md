@@ -54,7 +54,7 @@ proposed Vercel wording above must not be applied. See
 ## 2026-11-21-cloudflare-workers-cutover
 
 - class: governed-doc-drift
-- status: proposed (not applied)
+- status: applied 2026-11-24 in `98b11f3` (operator `UNLOCK README.md`, `UNLOCK AGENTS.md`, `UNLOCK NFA_ALIGNMENT.md`)
 - files: `README.md` (repo root), `AGENTS.md` (repo root), `NFA_ALIGNMENT.md` (repo root)
 - authority: Tier 2 `operator_locked` — universal fallback (no `contracts/authority-lock.yaml`). Root `README.md` and `AGENTS.md` are operator-locked per repo precedent (see superseded entry above). `NFA_ALIGNMENT.md` is named directly in `AGENTS.md`'s Authority chain (#2) alongside AGENTS.md and is treated with the same governed caution.
 - date: 2026-11-21
@@ -106,3 +106,9 @@ no local/NFA runtime dependency.
 ### Requires
 
 authority_maintainer + AUTH id + rollback + validators + independent review. Do not auto-apply.
+
+### Applied
+
+Operator issued the unlock explicitly on 2026-11-24 (`UNLOCK README.md`, `UNLOCK AGENTS.md`, `UNLOCK NFA_ALIGNMENT.md`), scoped to this entry's proposed wording only. The three files were edited verbatim against verified source on branch `docs/unlock-workers-hosting` (commit `98b11f3`); no other section of those files changed. docs-guardian re-ran after the edit.
+
+DNS and live-host facts re-confirmed by the caller before applying: apex `maxadjust.com` and `www` are proxied CNAMEs to `maxadjust.ynotfins.workers.dev`; `curl -sI https://maxadjust.com` returns 200 from `server: cloudflare`; `www` returns 308 to the apex. The Vercel project was deleted by the operator on 2026-11-24 (Vercel API now returns 404 for `prj_S7Lu3kbcvjTDCLek3wpPrB8fxbvX`).
